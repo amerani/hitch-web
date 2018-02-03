@@ -44,15 +44,22 @@ body {
     .card {
         box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
         display: grid;
-        grid-template-rows: 2fr 1fr;
+        grid-template-rows: 1fr 1fr;
         align-items: center;
         padding: 2.5%;
         margin: 2%;
     }
+    .card img {
+        height: 40%;
+        width: 80%;
+        align-self: end;
+    }
     
     .card p {
-        font-size: calc(1em);
+        margin-top: 5%;
+        font-size: calc(1em + 2vw);
         justify-self: center;
+        align-self: start;
     }
 }
 
@@ -65,14 +72,22 @@ body {
     .card {
         box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
         display: grid;
-        grid-template-rows: 2fr 1fr;
+        grid-template-rows: 1fr 1fr;
         align-items: center;
         padding: 2.5%;
         margin: 2%;
     }
+
+    .card img {
+        height: 40%;
+        width: 80%;
+        align-self: end;
+    }
     
     .card p {
-        font-size: calc(1em);
+        margin-top: 5%;
+        font-size: calc(1em + 2vw);
         justify-self: center;
+        align-self: start;
     }
 }
