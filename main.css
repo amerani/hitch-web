@@ -1,5 +1,6 @@
 body {
-    font-family: 'Roboto', 'Open Sans', 'Helvetica Neue', sans-serif
+    font-family: 'Roboto', 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 125;
 }
 
 .main {    
@@ -22,25 +23,36 @@ body {
     box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);    
     display: grid;
     align-items: center;
-    padding: 2.5%;
-    margin: 2%;
+    padding: .5em;
+    margin: .5em;
 }
 
 .card img {
-    height: 75%;
-    width: 80%;
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);    
+    height: 50%;
+    width: 50%;
     justify-self: center;
+    padding: 5%;
 }
 
+.card p {
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.2); 
+}
 
 @media (min-width: 470px) {
     .card {
-        grid-template-columns: 2fr 8fr;
+        grid-template-columns: 1fr 2fr 0.5fr;
     }
 
     .card p {
         font-size: calc(1em + 2vw);
         justify-self: center;
+    }
+
+    .card button {
+        justify-self: center;
+        height: calc(1em + 2vw);
+        width: calc(1em + 2vw);
     }
 }
 
@@ -50,8 +62,9 @@ body {
     }
     .card img {
         height: 40%;
-        width: 80%;
+        width: 40%;
         align-self: end;
+        box-shadow: 0px 0px 0px;
     }
     
     .card p {
@@ -60,28 +73,8 @@ body {
         justify-self: center;
         align-self: start;
     }
-}
 
-/* Portrait */
-@media only screen 
-  and (min-width: 375px) 
-  and (max-width: 812px) 
-  and (-webkit-min-device-pixel-ratio: 3)
-  and (orientation: portrait) { 
-    .card {
-        grid-template-rows: 1fr 1fr;
-    }
-
-    .card img {
-        height: 40%;
-        width: 80%;
-        align-self: end;
-    }
-    
-    .card p {
-        margin-top: 5%;
-        font-size: calc(1em + 2vw);
-        justify-self: center;
-        align-self: start;
+    .card button {
+        display: none;
     }
 }
