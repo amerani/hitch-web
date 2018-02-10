@@ -3,6 +3,36 @@ body {
     font-weight: 125;
 }
 
+.mama {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80vw;
+    height: 10vh;
+    border: 2px solid purple;
+  }
+  .mama div { 
+    display: flex;
+    justify-content: center;
+    
+    padding: 10px;
+    border: 1px solid orange;
+  }
+  .mama .bebe-1 {
+    flex: 1;
+  }
+  .mama .bebe-2 {
+    flex: 2;
+  }
+.fab {
+        position: relative;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        left: calc(80vw - 13px);
+        bottom: calc(10vh - 22px);
+    }
+
 .main {    
     height: 100vh;
     display: flex;
