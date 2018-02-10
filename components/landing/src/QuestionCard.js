@@ -13,7 +13,7 @@ class QuestionCard extends Component {
                 <p>{this.props.question}</p>
                 <button className="mdc-fab material-icons">
                     <span className="mdc-fab__icon">
-                        +
+                        add
                     </span>
                 </button>
             </div>
