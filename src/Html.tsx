@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 
-const Html = (props) => {
+const Html = (props: any) => {
     return (
         <html>
             <head>

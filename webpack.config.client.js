@@ -3,8 +3,8 @@ const path = require('path');
 
 module.exports = {
     mode: 'development',
-    devtool: 'source-map',
-    entry: './src/client.js',
+    devtool: 'inline-source-map',
+    entry: './src/client.tsx',
     output: {
         path: path.resolve(__dirname, 'dist/client'),
         filename: 'bundle.js',
@@ -13,10 +13,15 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: /(node_modules)/
+                test: /\.tsx$/,
+                loader: 'ts-loader',
+                options: {
+                    configFile: path.resolve(__dirname, 'tsconfig.json')
+                }
             }
         ]
+    },
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js']
     }
 }

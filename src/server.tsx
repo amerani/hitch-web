@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import express from 'express';
+import * as React from 'react';
+import * as ReactDOMServer from 'react-dom/server';
+import * as express from 'express';
 import App from './App';
 import Html from './Html';
 
@@ -15,7 +15,7 @@ const initialData = {
 app.get('/', (req, res) => {
     ReactDOMServer.renderToNodeStream(
         <Html initialData={JSON.stringify(initialData)}>
-            <App {...initialData} name="world" />
+            <App {...initialData} name="alek" />
         </Html>
     )
     .pipe(res);
