@@ -3,10 +3,11 @@ import * as ReactDOMServer from 'react-dom/server';
 import * as express from 'express';
 import App from './App';
 import Html from './Html';
+import * as path from 'path'
 
 const app = express();
 
-app.use('/static', express.static('public'));
+app.use('/static', express.static(path.join(process.cwd(), 'dist/client')));
 
 const initialData = {
     name: 'World'
