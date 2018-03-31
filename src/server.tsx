@@ -23,7 +23,7 @@ app.use((req, res) => {
     const fetch: any = nodeFetch;
     const client = new ApolloClient({
         ssrMode: true,
-        link: new HttpLink({uri: 'http://localhost:8080/graphql', fetch}),
+        link: new HttpLink({uri: 'http://localhost:8080', fetch}),
         cache: new InMemoryCache()
     })
 

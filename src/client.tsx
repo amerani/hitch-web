@@ -11,7 +11,7 @@ const initialData = JSON.parse(document.getElementById('initial-data').getAttrib
 
 const client = new ApolloClient({
     ssrForceFetchDelay: 100,
-    link: new HttpLink({uri: 'http://localhost:8080/graphql'}),
+    link: new HttpLink({uri: 'http://localhost:8080'}),
     cache: new InMemoryCache().restore(initialData),
     connectToDevTools: true
 })
