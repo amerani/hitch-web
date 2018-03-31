@@ -1,10 +1,15 @@
+import * as nodeFetch from 'node-fetch';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 import * as express from 'express';
-import App from './App';
-import Html from './Html';
 import * as path from 'path'
 import { StaticRouter } from 'react-router';
+import { ApolloClient } from 'apollo-client';
+import { HttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloProvider } from 'react-apollo';
+import App from './App';
+import Html from './Html';
 
 const app = express();
 
@@ -15,13 +20,21 @@ const initialData = {
 }
 
 app.use((req, res) => {
+    const fetch: any = nodeFetch;
+    const client = new ApolloClient({
+        ssrMode: true,
+        link: new HttpLink({uri: 'http://localhost:8080/graphql', fetch}),
+        cache: new InMemoryCache()
+    })
+
     ReactDOMServer.renderToNodeStream(
-        <StaticRouter location={req.url} context={{}}>
-            <Html initialData={JSON.stringify(initialData)}>
-                <App {...initialData} />
-            </Html>
-        </StaticRouter>
-        
+        <ApolloProvider client={client}>
+            <StaticRouter location={req.url} context={{}}>
+                <Html initialData={JSON.stringify(initialData)}>
+                    <App {...initialData} />
+                </Html>
+            </StaticRouter>
+        </ApolloProvider>
     )
     .pipe(res);
 })
