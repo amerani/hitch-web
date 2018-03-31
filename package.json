@@ -1,0 +1,31 @@
+{
+  "name": "hitch-web",
+  "version": "0.1.0",
+  "description": "www for project-hitch",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --progress --config webpack.config.server.js && webpack --progress --config webpack.config.client.js",
+    "dev": "NODE_ENV=development concurrently -c blue,cyan,magenta \"webpack --watch --config webpack.config.server.js\" \"sleep 3 && nodemon --watch dist/server dist/server/bundle.js\" \"webpack-dev-server -d --hot --inline --no-info --port 3020 --config webpack.config.client.js\"",    
+    "test": "jest"
+  },
+  "author": "Alek Merani",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "express": "^4.16.3",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "concurrently": "^3.5.1",
+    "nodemon": "^1.17.3",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-server": "^3.1.1"
+  }
+}
