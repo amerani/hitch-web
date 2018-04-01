@@ -4,6 +4,7 @@
   "description": "www for project-hitch",
   "main": "index.js",
   "scripts": {
+    "start": "NODE_ENV=production node dist/server/bundle.js",
     "build": "webpack --progress --config webpack.config.server.js && webpack --progress --config webpack.config.client.js",
     "dev": "NODE_ENV=development concurrently -c blue,green,cyan,magenta \"webpack --watch --config webpack.config.client.js\" \"webpack --watch --config webpack.config.server.js\" \"sleep 3 && nodemon --watch dist/server dist/server/bundle.js\" \"webpack-dev-server -d --hot --inline --no-info --port 3020 --config webpack.config.client.js\"",
     "test": "jest"

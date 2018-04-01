@@ -1,8 +1,10 @@
 const webpack = require('webpack');
 const path = require('path');
 
+const isDev = process.env.NODE_ENV !== 'production'
+
 module.exports = {
-    mode: 'development',
+    mode: isDev ? 'development' : 'production',
     devtool: 'inline-source-map',
     entry: './src/client.tsx',
     output: {
