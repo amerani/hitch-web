@@ -4,8 +4,9 @@ import gql from 'graphql-tag';
 
 const searchQuery = gql`
     query {
-        trips {
+        trips(take:5) {
             createdBy {
+                id
                 email
             }
         }
@@ -22,10 +23,15 @@ export default class Search extends React.Component {
             <Query query={searchQuery}>
                 {({loading, data, error, fetchMore }) => {
                     return (
-                        <div>
-                            {JSON.stringify(data)}
-                            {loading ? <p>Loading</p> : null}
-                        </div>
+                    <>
+                        {loading
+                            ? <p>Loading</p> 
+                            : data.trips.map((trip:any) => 
+                                <div key={trip.createdBy.id}>
+                                    {trip.createdBy.email}
+                                </div>)
+                        }
+                    </>
                     )
                 }}
             </Query>

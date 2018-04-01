@@ -17,7 +17,7 @@ module.exports = {
                 test: /\.tsx$/,
                 loader: 'ts-loader',
                 options: {
-                    configFile: path.resolve(__dirname, 'tsconfig.json')
+                    configFile: path.resolve(__dirname, 'tsconfig.server.json')
                 }
             }
         ]
