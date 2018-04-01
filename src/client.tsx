@@ -6,12 +6,27 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
+import { ApolloLink, concat } from 'apollo-link';
+import { API_URL } from './config';
 
 const initialData = JSON.parse(document.getElementById('initial-data').getAttribute('data-json'));
 
+const authLink = new ApolloLink((op, next) => {
+    if(localStorage['HITCH_JWT']) {
+        op.setContext({
+            headers: {
+                authorization: `Bearer ${localStorage['HITCH_JWT']}`
+            }
+        })
+    }
+    return next(op);
+})
+
+const httpLink = new HttpLink({uri: API_URL });
+
 const client = new ApolloClient({
     ssrForceFetchDelay: 100,
-    link: new HttpLink({uri: 'http://localhost:8080'}),
+    link: concat(authLink, httpLink),
     cache: new InMemoryCache().restore(initialData),
     connectToDevTools: true
 })

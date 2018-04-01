@@ -5,6 +5,7 @@ import ListPage from './ListPage';
 import Messages from './Messages';
 import SignUpPage from './SignUpPage';
 import LogInPage from './LogInPage';
+import TripPage from './TripPage';
 
 const App = (props: any) => {
     return (
@@ -19,6 +20,7 @@ const App = (props: any) => {
                 <Route path="/search" component={Search}/>
                 <Route path="/list" component={ListPage}/>
                 <Route path="/messages" component={Messages}/>
+                <Route path="/trip/:id" component={TripPage}/>
             </div>
             <nav>
                 <Link to="/search">Search</Link>

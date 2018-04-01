@@ -30,6 +30,7 @@ export default class LogInPage extends React.Component<any, any> {
             localStorage['HITCH_JWT'] = data.user.jwt;
             this.props.history.push('/list');
         } catch (error) {
+            //TODO: error handling for not found and incorrect
             console.log(error);
         }
     }

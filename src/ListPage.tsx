@@ -7,6 +7,7 @@ const mutation = gql`
     mutation createTrip($input: CreateTripInput!) {
         createTrip(input: $input) {
             trip {
+                id
                 legs {
                     id
                     origin { id, city }
@@ -27,7 +28,7 @@ const mutation = gql`
     }
 `
 
-export default class ListPage extends React.Component {
+export default class ListPage extends React.Component<any, any> {
     constructor(props:any){
         super(props)
     }
@@ -36,7 +37,6 @@ export default class ListPage extends React.Component {
         event.preventDefault();
         try {
             const res = await mutate({
-                context: { headers : { authorization: `Bearer ${localStorage['HITCH_JWT']}`}},
                 variables: {input: {
                     origin: event.target['originCity'].value,
                     destination: event.target['destinationCity'].value,
@@ -47,8 +47,13 @@ export default class ListPage extends React.Component {
                 }}
             })
             const data = res.data.createTrip;
+            this.props.history.push({
+                pathname: `/trip/${data.trip.id}`,
+                state: {trip: data.trip}
+            })
 
         } catch (error) {
+            //error handling for unauthorized
             console.log(error, error.graphQLErrors, error.networkError);
         }
     }

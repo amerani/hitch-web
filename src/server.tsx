@@ -10,6 +10,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 import App from './App';
 import Html from './Html';
+import { API_URL } from './config';
 
 const app = express();
 
@@ -23,7 +24,7 @@ app.use((req, res) => {
     const fetch: any = nodeFetch;
     const client = new ApolloClient({
         ssrMode: true,
-        link: new HttpLink({uri: 'http://localhost:8080', fetch}),
+        link: new HttpLink({uri: API_URL, fetch}),
         cache: new InMemoryCache()
     })
 
