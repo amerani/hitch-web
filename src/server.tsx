@@ -14,6 +14,8 @@ import { API_URL } from './config';
 
 const app = express();
 
+app.set('port', process.env.PORT || 3000);
+
 app.use('/static', express.static(path.join(process.cwd(), 'dist/client')));
 
 const initialData = {
@@ -40,6 +42,6 @@ app.use((req, res) => {
     .pipe(res);
 })
 
-app.listen(3000, () => {
-    console.log('listening on port 3000...');
+app.listen(app.get('port'), () => {
+    console.log(`listening on port ${app.get('port')}...`);
 })
