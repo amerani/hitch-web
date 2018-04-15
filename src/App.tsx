@@ -6,29 +6,48 @@ import Messages from './Messages';
 import SignUpPage from './SignUpPage';
 import LogInPage from './LogInPage';
 import TripPage from './TripPage';
+import AppBar from './AppBar';
+import BottomNav from './BottomNav';
+import { Grid, withStyles, Paper } from 'material-ui';
+
+const styles:any = (theme:any) => ({
+    root: {
+        flexGrow: 1
+    },
+    flex: {
+        flex: 1
+    },
+    bottomNav: {
+        position: 'fixed',
+        bottom: 0,
+        width: '100%'
+    }
+})
 
 const App = (props: any) => {
+    const {classes} = props;
     return (
-        <div>
-            <nav>
-                <Link to="/signup">SignUp</Link>
-                <Link to="/login">LogIn</Link>
-            </nav>
-            <div>
-                <Route path="/signup" component={SignUpPage}/>
-                <Route path="/login" component={LogInPage}/>
-                <Route path="/search" component={Search}/>
-                <Route path="/list" component={ListPage}/>
-                <Route path="/messages" component={Messages}/>
-                <Route path="/trip/:id" component={TripPage}/>
-            </div>
-            <nav>
-                <Link to="/search">Search</Link>
-                <Link to="/list">List</Link>
-                <Link to="/messages">Messages</Link>
-            </nav>            
+        <div className={classes.root}>
+            <Grid container spacing={16}>
+                <Grid item xs={12}>
+                    <AppBar />
+                </Grid>
+                <Grid item xs={12}>
+                    <Paper>
+                        <Route path="/signup" component={SignUpPage}/>
+                        <Route path="/login" component={LogInPage}/>
+                        <Route path="/search" component={Search}/>
+                        <Route path="/list" component={ListPage}/>
+                        <Route path="/messages" component={Messages}/>
+                        <Route path="/trip/:id" component={TripPage}/>                
+                    </Paper>
+                </Grid>
+                <Grid item xs={12} className={`${classes.bottomNav} ${classes.flex}`}>
+                    <BottomNav />
+                </Grid>
+            </Grid>
         </div>
     )
 }
 
-export default App;
+export default withStyles(styles)(App);

@@ -5,6 +5,8 @@ const Html = (props: any) => {
         <html>
             <head>
                 <title>Hitch</title>
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+                <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />  
             </head>
             <body>
                 <div id="app">{props.children}</div>

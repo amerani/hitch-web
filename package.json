@@ -19,6 +19,7 @@
     "graphql": "^0.13.2",
     "graphql-tag": "^2.8.0",
     "luxon": "^1.0.0",
+    "material-ui": "^1.0.0-beta.41",
     "node-fetch": "^2.1.2",
     "react": "^16.3.0",
     "react-apollo": "^2.1.1",
@@ -28,7 +29,7 @@
     "ts-loader": "^4.1.0",
     "typescript": "^2.8.1",
     "webpack": "^4.4.1",
-    "webpack-cli": "^2.0.13"    
+    "webpack-cli": "^2.0.13"
   },
   "devDependencies": {
     "@types/es6-promise": "^3.3.0",
