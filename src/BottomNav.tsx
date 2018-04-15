@@ -6,7 +6,11 @@ import { withRouter } from 'react-router';
 const styles = {
   root: {
     flexGrow: 1,
+    height: '10vh'
   },
+  icon: {
+    fontSize: '48px'
+  }
 };
 
 class BottomNav extends React.Component<any, any> {
@@ -30,9 +34,12 @@ class BottomNav extends React.Component<any, any> {
         onChange={this.handleChange}
         className={classes.root}
       >
-        <BottomNavigationAction label="Search" value="search" icon={<Icon>search</Icon>} />
-        <BottomNavigationAction label="List" value="list" icon={<Icon>add</Icon>} />
-        <BottomNavigationAction label="Messages" value="messages" icon={<Icon>chat</Icon>} />
+        <BottomNavigationAction label="Search" value="search" 
+            icon={<Icon className={classes.icon}>search</Icon>} />
+        <BottomNavigationAction label="List" value="list" 
+            icon={<Icon className={classes.icon}>add</Icon>} />
+        <BottomNavigationAction label="Messages" value="messages" 
+            icon={<Icon className={classes.icon}>chat</Icon>} />
       </BottomNavigation>
     );
   }
