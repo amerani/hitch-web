@@ -1,17 +1,15 @@
 import * as React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import SearchItem, {fragment} from './SearchItem';
 
 const searchQuery = gql`
     query {
         trips(take:5) {
-            id
-            createdBy {
-                id
-                email
-            }
+            ...SearchTrip
         }
     }
+    ${fragment}
 `
 
 export default class Search extends React.Component {
@@ -28,9 +26,8 @@ export default class Search extends React.Component {
                         {loading
                             ? <p>Loading</p> 
                             : data.trips.map((trip:any) => 
-                                <div key={trip.id}>
-                                    {trip.createdBy.email}
-                                </div>)
+                                <SearchItem key={trip.id} trip={trip} />
+                            )
                         }
                     </>
                     )
