@@ -1,6 +1,7 @@
 import * as React from 'react';
 import gql from 'graphql-tag';
-import { Card, CardContent, Typography } from 'material-ui';
+import { withRouter } from 'react-router';
+import { Card, CardContent, Typography, CardActions, Button } from 'material-ui';
 
 export const fragment = gql`
 fragment SearchTrip on Trip {
@@ -17,9 +18,13 @@ fragment SearchTrip on Trip {
 }
 `
 
-export default class SearchItem extends React.Component<any, any> {
+class SearchItem extends React.Component<any, any> {
     constructor(props:any){
         super(props);
+    }
+
+    handleClick(event:any, tripId: any) {
+        this.props.history.push(`/trip/${tripId}`)
     }
 
     render() {
@@ -40,8 +45,25 @@ export default class SearchItem extends React.Component<any, any> {
                             Arrival: {this.props.trip.legs[0].arrival}
                         </Typography>                                                
                     </CardContent>
+                    <CardActions>
+                        <Button 
+                            onClick={(event) => 
+                                this.handleClick(event, this.props.trip.id)} 
+                            variant="raised"
+                        >
+                            View
+                        </Button>
+                    </CardActions>
                 </Card>
             </>
         ) 
+    }
+}
+
+const WithRouter = withRouter(SearchItem);
+
+export default class SearchItemWithRouter extends React.Component<any, any> {
+    render() {
+        return <WithRouter {...this.props}/>
     }
 }
