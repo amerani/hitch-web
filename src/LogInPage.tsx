@@ -64,6 +64,7 @@ export default class LogInPage extends React.Component<any, any> {
                                 onChange={this.handleChange('email')}
                                 margin="normal"
                                 helperText={this.state.errorText}
+                                fullWidth={true}
                                 />
                             <br/>
                             <TextField
@@ -74,6 +75,7 @@ export default class LogInPage extends React.Component<any, any> {
                                 margin="normal"
                                 onChange={this.handleChange('password')}
                                 helperText={this.state.errorText}
+                                fullWidth={true}                                
                                 />
                             <br/>
                             <br/>
