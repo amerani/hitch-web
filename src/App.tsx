@@ -17,6 +17,10 @@ const styles:any = (theme:any) => ({
     flex: {
         flex: 1
     },
+    pageView: {
+        padding: '30px !important',
+        height: '100%'
+    },
     bottomNav: {
         position: 'fixed',
         bottom: 0,
@@ -33,7 +37,7 @@ const App = (props: any) => {
                     <AppBar />
                 </Grid>
                 <Grid item xs={12}>
-                    <Paper>
+                    <Paper className={classes.pageView}>
                         <Route path="/signup" component={SignUpPage}/>
                         <Route path="/login" component={LogInPage}/>
                         <Route path="/search" component={Search}/>
