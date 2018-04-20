@@ -1,7 +1,7 @@
 import * as React from 'react';
 import gql from 'graphql-tag';
 import { withRouter } from 'react-router';
-import { Card, CardContent, Typography, CardActions, Button } from 'material-ui';
+import { Card, CardContent, Typography, CardActions, Button, withStyles } from 'material-ui';
 
 export const fragment = gql`
 fragment SearchTrip on Trip {
@@ -18,6 +18,13 @@ fragment SearchTrip on Trip {
 }
 `
 
+const styles: any = {
+    card: {
+        marginTop: '5px',
+        marginBottom: '5px'
+    }
+}
+
 class SearchItem extends React.Component<any, any> {
     constructor(props:any){
         super(props);
@@ -28,9 +35,10 @@ class SearchItem extends React.Component<any, any> {
     }
 
     render() {
+        const { classes } = this.props;
         return (
             <>
-                <Card>
+                <Card className={classes.card}>
                     <CardContent>
                         <Typography>
                             Username: {this.props.trip.createdBy.userName}
@@ -60,7 +68,7 @@ class SearchItem extends React.Component<any, any> {
     }
 }
 
-const WithRouter = withRouter(SearchItem);
+const WithRouter = withRouter(withStyles(styles)(SearchItem));
 
 export default class SearchItemWithRouter extends React.Component<any, any> {
     render() {
