@@ -20,7 +20,7 @@ class HitchAppBar extends React.Component<any, any> {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                <AppBar position="sticky">
+                <AppBar position="fixed">
                     <Toolbar className={classes.end}>
                         <Button>
                             <Link style={{textDecoration: 'none', color: 'white'}} to="/signup">

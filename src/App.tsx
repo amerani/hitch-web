@@ -17,19 +17,20 @@ const styles:any = (theme:any) => ({
     flex: {
         flex: 1
     },
+    topNav: {
+        height: '10vh'
+    },
     pageView_root: {
         display: 'flex',
         justifyContent: 'center'
     },
     pageView: {
         padding: '30px !important',
-        height: '100%',
+        minHeight: '70vh',
         width: '60%'
     },
     bottomNav: {
-        position: 'fixed',
-        bottom: 0,
-        width: '100%'
+        height: '10vh'
     }
 })
 
@@ -38,7 +39,7 @@ const App = (props: any) => {
     return (
         <div className={classes.root}>
             <Grid container spacing={16}>
-                <Grid item xs={12}>
+                <Grid item xs={12} className={classes.topNav}>
                     <AppBar />
                 </Grid>
                 <Grid item xs={12} className={classes.pageView_root}>
@@ -51,7 +52,7 @@ const App = (props: any) => {
                         <Route path="/trip/:id" component={TripPage}/>                
                     </Paper>
                 </Grid>
-                <Grid item xs={12} className={`${classes.bottomNav} ${classes.flex}`}>
+                <Grid item xs={12} className={classes.bottomNav}>
                     <BottomNav />
                 </Grid>
             </Grid>

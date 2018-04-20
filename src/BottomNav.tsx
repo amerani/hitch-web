@@ -3,10 +3,13 @@ import { withStyles, Icon } from 'material-ui';
 import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
 import { withRouter } from 'react-router';
 
-const styles = {
+const styles:any = {
   root: {
     flexGrow: 1,
-    height: '10vh'
+    position: 'fixed',
+    bottom: 0,
+    width: '100%',
+    height: 'auto'
   },
   icon: {
     fontSize: '48px'
