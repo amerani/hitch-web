@@ -8,7 +8,7 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
-import { JssProvider, SheetsRegistry } from 'react-jss';
+const { JssProvider, SheetsRegistry } = require('react-jss');
 import { createGenerateClassName } from 'material-ui/styles';
 import App from './App';
 import Html from './Html';

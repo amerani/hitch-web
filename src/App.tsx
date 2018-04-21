@@ -9,6 +9,8 @@ import TripPage from './TripPage';
 import AppBar from './AppBar';
 import BottomNav from './BottomNav';
 import { Grid, withStyles, Paper } from 'material-ui';
+import DateFnsUtils from 'material-ui-pickers/utils/date-fns-utils';
+import { MuiPickersUtilsProvider } from 'material-ui-pickers'; 
 
 const styles:any = (theme:any) => ({
     root: {
@@ -37,26 +39,28 @@ const styles:any = (theme:any) => ({
 const App = (props: any) => {
     const {classes} = props;
     return (
-        <div className={classes.root}>
-            <Grid container spacing={16}>
-                <Grid item xs={12} className={classes.topNav}>
-                    <AppBar />
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <div className={classes.root}>
+                <Grid container spacing={16}>
+                    <Grid item xs={12} className={classes.topNav}>
+                        <AppBar />
+                    </Grid>
+                    <Grid item xs={12} className={classes.pageView_root}>
+                        <Paper className={classes.pageView}>
+                            <Route path="/signup" component={SignUpPage}/>
+                            <Route path="/login" component={LogInPage}/>
+                            <Route path="/search" component={Search}/>
+                            <Route path="/list" component={ListPage}/>
+                            <Route path="/messages" component={Messages}/>
+                            <Route path="/trip/:id" component={TripPage}/>                
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} className={classes.bottomNav}>
+                        <BottomNav />
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} className={classes.pageView_root}>
-                    <Paper className={classes.pageView}>
-                        <Route path="/signup" component={SignUpPage}/>
-                        <Route path="/login" component={LogInPage}/>
-                        <Route path="/search" component={Search}/>
-                        <Route path="/list" component={ListPage}/>
-                        <Route path="/messages" component={Messages}/>
-                        <Route path="/trip/:id" component={TripPage}/>                
-                    </Paper>
-                </Grid>
-                <Grid item xs={12} className={classes.bottomNav}>
-                    <BottomNav />
-                </Grid>
-            </Grid>
-        </div>
+            </div>
+        </MuiPickersUtilsProvider>
     )
 }
 

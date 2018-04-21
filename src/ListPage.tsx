@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import { DateTime } from 'luxon';
+import { TextField, Grid, Tabs, Tab, Button } from 'material-ui';
+import { addDays, startOfDay } from 'date-fns';
+import { DateTimePicker } from 'material-ui-pickers';
 
 const mutation = gql`
     mutation createTrip($input: CreateTripInput!) {
@@ -33,17 +35,26 @@ export default class ListPage extends React.Component<any, any> {
         super(props)
     }
 
-    async handleSubmit(event:any, mutate:any) {
-        event.preventDefault();
+    state: any = {
+        origin: '',
+        destination: '',
+        departure: new Date(),
+        arrival: addDays(new Date(), 1),
+        transportType: 'CAR',
+        reservationType: 'SEAT'
+    }
+
+    submitForm = async (mutate: any) => {
+        const { origin, destination, arrival, departure, transportType, reservationType} = this.state;
         try {
             const res = await mutate({
                 variables: {input: {
-                    origin: event.target['originCity'].value,
-                    destination: event.target['destinationCity'].value,
-                    arrival: event.target['arrival'].value,
-                    departure: event.target['departure'].value,
-                    transportType: event.target['transportType'].value,
-                    reservationType: event.target['reservationType'].value,
+                    origin,
+                    destination,
+                    arrival: arrival.toString(),
+                    departure: departure.toString(),
+                    transportType,
+                    reservationType
                 }}
             })
             const data = res.data.createTrip;
@@ -55,7 +66,19 @@ export default class ListPage extends React.Component<any, any> {
         } catch (error) {
             //error handling for unauthorized
             console.log(error, error.graphQLErrors, error.networkError);
-        }
+        }        
+    }
+
+    handleDateChange = (name: any) => (date: any) => {
+        this.setState({
+            [name]: date
+        })
+    }
+
+    handleChange = (name: any) => (event: any, value?: any) => {
+        this.setState({
+            [name]: event.target.value || value,
+        });
     }
 
     render() {
@@ -63,34 +86,92 @@ export default class ListPage extends React.Component<any, any> {
             <Mutation mutation={mutation}>{
                 (mutate) => {
                     return (
-                        <form onSubmit={(event) => this.handleSubmit(event, mutate)}>
-                            <label> Origin City <input type="text" name="originCity"/> </label>
-                            <label> Destination City <input type="text" name="destinationCity"/> </label><br/>
-                            <label> Departure <input type="text" name="departure" defaultValue={DateTime.utc(undefined).toString()}/> </label>
-                            <label> Est. Arrival <input type="text" name="arrival" defaultValue={DateTime.utc(undefined).plus({days: 3}).toString()}/> </label>
-
-                            <p>Transport Type</p>
-                            <div>
-                                <input type="radio" name="transportType" value="CAR"/>
-                                <label>Car</label>
-                                <input type="radio" name="transportType" value="BUS"/>
-                                <label>Bus</label>
-                                <input type="radio" name="transportType" value="RV"/>
-                                <label>RV</label>                                
-                            </div>
-
-                            <p>Reservation Type</p>
-                            <div>
-                                <input type="radio" name="reservationType" value="SEAT"/>
-                                <label>Seat</label>
-                                <input type="radio" name="reservationType" value="BED"/>
-                                <label>Bed</label>
-                                <input type="radio" name="reservationType" value="RECLINER"/>
-                                <label>Recliner</label>                                
-                            </div>
-
-                            <button type="submit">List</button>
+                        <>
+                        <form>
+                            <Grid container spacing={24}>
+                                <Grid item xs={6}>
+                                    <TextField
+                                        id="origin"
+                                        label="Origin"
+                                        value={this.state.origin}
+                                        onChange={this.handleChange('origin')}
+                                        margin="normal"
+                                        helperText="City or Postal Code"
+                                        fullWidth={true}                   
+                                    />                                
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <TextField
+                                        id="destination"
+                                        label="Destination"
+                                        value={this.state.destination}
+                                        onChange={this.handleChange('destination')}
+                                        margin="normal"
+                                        helperText="City or Postal Code"
+                                        fullWidth={true}                            
+                                    />                                
+                                </Grid>                 
+                                <Grid item xs={6}>
+                                    <DateTimePicker
+                                        keyboard
+                                        fullWidth={true}
+                                        label="Departure"
+                                        onError={console.log}
+                                        minDate={startOfDay(new Date())}
+                                        value={this.state.departure}
+                                        onChange={this.handleDateChange('departure')}
+                                        format="MM/DD/YYYY hh:mm A"
+                                        mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/, ' ', /a|p/i, 'M']}
+                                    />                              
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <DateTimePicker
+                                        keyboard
+                                        fullWidth={true}                                        
+                                        label="Estimated Arrival"
+                                        onError={console.log}
+                                        minDate={startOfDay(new Date())}
+                                        value={this.state.arrival}
+                                        onChange={this.handleDateChange('arrival')}
+                                        format="MM/DD/YYYY hh:mm A"
+                                        mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/, ' ', /a|p/i, 'M']}
+                                    />                              
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Tabs
+                                        value={this.state.transportType}
+                                        onChange={this.handleChange('transportType')}
+                                        fullWidth
+                                        indicatorColor="primary"
+                                        textColor="primary"
+                                    >
+                                        <Tab value="CAR" label="CAR" />
+                                        <Tab value="RV" label="RV" />
+                                        <Tab value="BUS" label="BUS" />
+                                        <Tab value="OTHER" label="OTHER" />
+                                    </Tabs>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Tabs
+                                        value={this.state.reservationType}
+                                        onChange={this.handleChange('reservationType')}
+                                        fullWidth
+                                        indicatorColor="primary"
+                                        textColor="primary"
+                                    >
+                                        <Tab value="SEAT" label="SEAT" />
+                                        <Tab value="BED" label="BED" />
+                                        <Tab value="OTHER" label="OTHER" />
+                                    </Tabs>
+                                </Grid>
+                                <br/>
+                                <br/>
+                                <Grid item xs={12}>
+                                    <Button variant="raised" onClick={() => this.submitForm(mutate)}>List</Button>                                
+                                </Grid>                                                                     
+                            </Grid>
                         </form>
+                        </>
                     )
                 }
             }
