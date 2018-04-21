@@ -22,7 +22,7 @@ const authLink = new ApolloLink((op, next) => {
     return next(op);
 })
 
-const httpLink = new HttpLink({uri: API_URL });
+const httpLink = new HttpLink({ uri: API_URL });
 
 const client = new ApolloClient({
     ssrForceFetchDelay: 100,
@@ -31,10 +31,18 @@ const client = new ApolloClient({
     connectToDevTools: true
 })
 
-ReactDOM.hydrate(
+const removeServerSideStyle = () => {
+    const jssStyles = document.getElementById('jss-server-side');
+    if(jssStyles && jssStyles.parentNode) {
+        jssStyles.parentNode.removeChild(jssStyles);
+    }
+}
+
+ReactDOM.render(
     <ApolloProvider client={client}>
         <BrowserRouter>
-            <App {...initialData}/>
+            <App {...initialData} />
         </BrowserRouter>
     </ApolloProvider>,
-    document.getElementById('app'));
+    document.getElementById('app'),
+    removeServerSideStyle);

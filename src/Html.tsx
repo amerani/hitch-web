@@ -10,6 +10,7 @@ const Html = (props: any) => {
             </head>
             <body>
                 <div id="app">{props.children}</div>
+                <style id="jss-server-side">{props.sheets.toString()}</style>
                 <script id="initial-data" type="text/plain" data-json={props.initialData}></script>
                 <script src="/static/bundle.js"></script>
             </body>

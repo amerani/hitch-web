@@ -8,6 +8,8 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
+import { JssProvider, SheetsRegistry } from 'react-jss';
+import { createGenerateClassName } from 'material-ui/styles';
 import App from './App';
 import Html from './Html';
 import { API_URL } from './config';
@@ -30,12 +32,17 @@ app.use((req, res) => {
         cache: new InMemoryCache()
     })
 
+    const sheets = new SheetsRegistry();
+    const generateClassName = createGenerateClassName();
+
     ReactDOMServer.renderToNodeStream(
         <ApolloProvider client={client}>
             <StaticRouter location={req.url} context={{}}>
-                <Html initialData={JSON.stringify(initialData)}>
-                    <App {...initialData} />
-                </Html>
+                <JssProvider registry={sheets} generateClassName={generateClassName}>
+                    <Html initialData={JSON.stringify(initialData)} sheets={sheets}>
+                        <App {...initialData} />
+                    </Html>
+                </JssProvider>
             </StaticRouter>
         </ApolloProvider>
     )
