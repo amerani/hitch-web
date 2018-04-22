@@ -38,10 +38,12 @@ const removeServerSideStyle = () => {
     }
 }
 
+const isLoggedIn = () => localStorage['HITCH_JWT'] != null;
+
 ReactDOM.render(
     <ApolloProvider client={client}>
         <BrowserRouter>
-            <App {...initialData} />
+            <App {...initialData} isLoggedIn={isLoggedIn} />
         </BrowserRouter>
     </ApolloProvider>,
     document.getElementById('app'),

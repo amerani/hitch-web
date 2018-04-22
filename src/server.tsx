@@ -20,6 +20,11 @@ app.set('port', process.env.PORT || 3000);
 
 app.use('/static', express.static(path.join(process.cwd(), 'dist/client')));
 
+app.use((err:any, req:any, res:any, next:any) => {
+    console.error(err.stack);
+    next(err);
+})
+
 const initialData = {
     name: 'alek merani'
 }
@@ -40,7 +45,7 @@ app.use((req, res) => {
             <StaticRouter location={req.url} context={{}}>
                 <JssProvider registry={sheets} generateClassName={generateClassName}>
                     <Html initialData={JSON.stringify(initialData)} sheets={sheets}>
-                        <App {...initialData} />
+                        <App {...initialData} isLoggedIn={() => false}/>
                     </Html>
                 </JssProvider>
             </StaticRouter>

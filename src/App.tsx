@@ -37,13 +37,13 @@ const styles:any = (theme:any) => ({
 })
 
 const App = (props: any) => {
-    const {classes} = props;
+    const {classes, isLoggedIn} = props;
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <div className={classes.root}>
                 <Grid container spacing={16}>
                     <Grid item xs={12} className={classes.topNav}>
-                        <AppBar />
+                        <AppBar isLoggedIn={isLoggedIn}/>
                     </Grid>
                     <Grid item xs={12} className={classes.pageView_root}>
                         <Paper className={classes.pageView}>
