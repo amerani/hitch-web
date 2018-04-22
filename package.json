@@ -6,7 +6,8 @@
   "scripts": {
     "start": "NODE_ENV=production node dist/server/bundle.js",
     "build": "rm -rf dist && NODE_ENV=production webpack --progress --config webpack.config.server.js && NODE_ENV=production webpack --progress --config webpack.config.client.js",
-    "dev": "NODE_ENV=development concurrently -c blue,green,cyan,magenta \"webpack --watch --config webpack.config.client.js\" \"webpack --watch --config webpack.config.server.js\" \"sleep 3 && nodemon --watch dist/server dist/server/bundle.js\" \"webpack-dev-server -d --hot --inline --no-info --port 3020 --config webpack.config.client.js\"",
+    "build-client": "rm -rf dist/client && webpack --config webpack.config.client.js",
+    "dev": "NODE_ENV=development concurrently -k -p \"[{name}]\" -n \"bundle-client,bundle-server,nodemon,dev-server\" -c \"blue,green,cyan,magenta\" \"webpack --watch --config webpack.config.client.js\" \"webpack --watch --config webpack.config.server.js\" \"sleep 3 && nodemon --watch dist/server dist/server/bundle.js\" \"webpack-dev-server -d --hot --inline --no-info --port 3020 --config webpack.config.client.js\"",
     "test": "jest"
   },
   "author": "Alek Merani",
@@ -20,7 +21,6 @@
     "express": "^4.16.3",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.8.0",
-    "luxon": "^1.0.0",
     "material-ui": "^1.0.0-beta.41",
     "material-ui-pickers": "^1.0.0-rc.6",
     "node-fetch": "^2.1.2",
@@ -29,12 +29,9 @@
     "react-apollo": "^2.1.1",
     "react-dom": "^16.3.0",
     "react-jss": "^8.4.0",
+    "react-loadable": "^5.3.1",
     "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "ts-loader": "^4.1.0",
-    "typescript": "^2.8.1",
-    "webpack": "^4.4.1",
-    "webpack-cli": "^2.0.13"
+    "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
     "@types/es6-promise": "^3.3.0",
@@ -43,10 +40,15 @@
     "@types/node-fetch": "^1.6.7",
     "@types/react": "^16.1.0",
     "@types/react-dom": "^16.0.4",
+    "@types/react-loadable": "^5.3.4",
     "@types/react-router": "^4.0.23",
     "@types/react-router-dom": "^4.2.6",
     "concurrently": "^3.5.1",
     "nodemon": "^1.17.3",
+    "ts-loader": "^4.1.0",
+    "typescript": "^2.8.1",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13",
     "webpack-dev-server": "^3.1.1"
   }
 }

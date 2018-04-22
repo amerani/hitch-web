@@ -2,14 +2,29 @@ const webpack = require('webpack');
 const path = require('path');
 
 const isDev = process.env.NODE_ENV !== 'production'
+const APP_DIR = path.resolve(__dirname, './src');
+const MODULES_DIR = path.resolve(__dirname, './node_modules');
 
 module.exports = {
     mode: isDev ? 'development' : 'production',
     devtool: 'inline-source-map',
-    entry: './src/client.tsx',
+    entry: {
+        app: `${APP_DIR}/client.tsx`,
+        Search: `${APP_DIR}/Search.tsx`,
+        ListPage: `${APP_DIR}/ListPage.tsx`,
+        LogInPage: `${APP_DIR}/LogInPage.tsx`,
+        SignUpPage: `${APP_DIR}/SignUpPage.tsx`,
+        TripPage: `${APP_DIR}/TripPage.tsx`,
+        // deps: [
+        //     'react', 'react-dom', 'react-router', 'react-router-dom',
+        //     'react-apollo', 'apollo-client', 'apollo-link-http', 'apollo-link', 'apollo-cache-inmemory',
+        //     'material-ui'
+        // ]
+    },
     output: {
         path: path.resolve(__dirname, 'dist/client'),
-        filename: 'bundle.js',
+        filename: '[name].bundle.js',
+        chunkFilename: '[name].bundle.js',
         publicPath: '/'
     },
     module: {
@@ -17,6 +32,10 @@ module.exports = {
             {
                 test: /\.tsx$/,
                 loader: 'ts-loader',
+                exclude: [
+                    /node_modules/,
+                    `${APP_DIR}/server.tsx`
+                ],
                 options: {
                     configFile: path.resolve(__dirname, 'tsconfig.client.json')
                 }
@@ -24,6 +43,31 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js']
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
+        modules: [APP_DIR, MODULES_DIR]
+    },
+    optimization: {
+        splitChunks: {
+            name: false,
+            chunks: "async",
+            cacheGroups: {
+                commons: {
+                    name: "commons",
+                    chunks: "initial",
+                    minChunks: 3
+                },
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    chunks: "all",
+                    priority: -10
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
+                }
+            }
+        }
     }
 }

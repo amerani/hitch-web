@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as Loadable from 'react-loadable';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { TextField, Grid, Tabs, Tab, Button } from 'material-ui';
@@ -122,7 +123,7 @@ export default class ListPage extends React.Component<any, any> {
                                         onChange={this.handleDateChange('departure')}
                                         format="MM/DD/YYYY hh:mm A"
                                         mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/, ' ', /a|p/i, 'M']}
-                                    />                              
+                                    />                                        
                                 </Grid>
                                 <Grid item xs={6}>
                                     <DateTimePicker
