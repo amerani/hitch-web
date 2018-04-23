@@ -9,17 +9,24 @@ module.exports = {
     mode: isDev ? 'development' : 'production',
     devtool: 'inline-source-map',
     entry: {
-        app: `${APP_DIR}/client.tsx`,
+        client: `${APP_DIR}/client.tsx`,
+        App: `${APP_DIR}/App.tsx`,
+        AppBar: `${APP_DIR}/AppBar.tsx`,
+        BottomNav: `${APP_DIR}/BottomNav.tsx`,
         Search: `${APP_DIR}/Search.tsx`,
         ListPage: `${APP_DIR}/ListPage.tsx`,
         LogInPage: `${APP_DIR}/LogInPage.tsx`,
         SignUpPage: `${APP_DIR}/SignUpPage.tsx`,
         TripPage: `${APP_DIR}/TripPage.tsx`,
-        // deps: [
-        //     'react', 'react-dom', 'react-router', 'react-router-dom',
-        //     'react-apollo', 'apollo-client', 'apollo-link-http', 'apollo-link', 'apollo-cache-inmemory',
-        //     'material-ui'
-        // ]
+        react: [
+            'react', 'react-dom', 'react-router', 'react-router-dom', 'react-loadable'
+        ],
+        material: [
+            'material-ui', 'material-ui-pickers'
+        ],
+        apollo: [
+            'react-apollo', 'apollo-client', 'apollo-link-http', 'apollo-link', 'apollo-cache-inmemory',
+        ]
     },
     output: {
         path: path.resolve(__dirname, 'dist/client'),
@@ -50,24 +57,24 @@ module.exports = {
         splitChunks: {
             name: false,
             chunks: "async",
-            cacheGroups: {
-                commons: {
-                    name: "commons",
-                    chunks: "initial",
-                    minChunks: 3
-                },
-                vendors: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: "vendors",
-                    chunks: "all",
-                    priority: -10
-                },
-                default: {
-                    minChunks: 2,
-                    priority: -20,
-                    reuseExistingChunk: true
-                }
-            }
+            // cacheGroups: {
+            //     commons: {
+            //         name: "commons",
+            //         chunks: "initial",
+            //         minChunks: 3
+            //     },
+            //     vendors: {
+            //         test: /[\\/]node_modules[\\/]/,
+            //         name: "vendors",
+            //         chunks: "all",
+            //         priority: 10
+            //     },
+            //     default: {
+            //         minChunks: 2,
+            //         priority: -20,
+            //         reuseExistingChunk: true
+            //     }
+            // }
         }
     }
 }

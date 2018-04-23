@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './App';
+import * as Loadable from 'react-loadable';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
@@ -39,6 +39,11 @@ const removeServerSideStyle = () => {
 }
 
 const isLoggedIn = () => localStorage['HITCH_JWT'] != null;
+
+const App = Loadable({
+    loader: () => import(/* webpackChunkName: "App" */ './App'),
+    loading: () => <p>Loading</p>
+})
 
 ReactDOM.render(
     <ApolloProvider client={client}>

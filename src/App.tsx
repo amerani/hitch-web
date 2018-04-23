@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Link, Route } from 'react-router-dom';
 import * as Loadable from 'react-loadable';
-import AppBar from './AppBar';
-import BottomNav from './BottomNav';
 import { Grid, withStyles, Paper } from 'material-ui';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import DateFnsUtils from 'material-ui-pickers/utils/date-fns-utils';
@@ -63,6 +61,15 @@ const TripPage = Loadable({
     loading: Loading
 });
 
+const AppBar = Loadable({
+    loader: () => import(/* webpackChunkName: "AppBar" */ './AppBar'),
+    loading: Loading
+});
+
+const BottomNav = Loadable({
+    loader: () => import(/* webpackChunkName: "BottomNav" */ './BottomNav'),
+    loading: Loading
+});
 
 const App = (props: any) => {
     const {classes, isLoggedIn} = props;
