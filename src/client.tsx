@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as Loadable from 'react-loadable';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
@@ -8,6 +7,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloLink, concat } from 'apollo-link';
 import { API_URL } from './config';
+import App from './App';
 
 const initialData = JSON.parse(document.getElementById('initial-data').getAttribute('data-json'));
 
@@ -22,7 +22,7 @@ const authLink = new ApolloLink((op, next) => {
     return next(op);
 })
 
-const httpLink = new HttpLink({ uri: API_URL });
+const httpLink = new HttpLink({ uri: "https://api.hitch.cool/graphql" });
 
 const client = new ApolloClient({
     ssrForceFetchDelay: 100,
@@ -39,11 +39,6 @@ const removeServerSideStyle = () => {
 }
 
 const isLoggedIn = () => localStorage['HITCH_JWT'] != null;
-
-const App = Loadable({
-    loader: () => import(/* webpackChunkName: "App" */ './App'),
-    loading: () => <p>Loading</p>
-})
 
 ReactDOM.render(
     <ApolloProvider client={client}>

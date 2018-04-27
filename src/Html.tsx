@@ -12,7 +12,11 @@ const Html = (props: any) => {
                 <div id="app">{props.children}</div>
                 <style id="jss-server-side">{props.sheets.toString()}</style>
                 <script id="initial-data" type="text/plain" data-json={props.initialData}></script>
-                <script src="/static/client.bundle.js"></script>
+                <script type="text/javascript" src="/static/manifest.bundle.js"></script>
+                <script type="text/javascript" src="/static/commons.chunk.js"></script>
+                <script type="text/javascript" src="/static/react.chunk.js"></script>
+                <script type="text/javascript" src="/static/vendors.chunk.js"></script>
+                <script type="text/javascript" src="/static/app.chunk.js"></script>
             </body>
         </html>
     )

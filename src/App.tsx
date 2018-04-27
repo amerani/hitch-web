@@ -28,47 +28,46 @@ const styles:any = (theme:any) => ({
         height: '10vh'
     }
 })
-
 const Loading = () => <p>Loading</p>;
 
 const Search = Loadable({
     loader: () => import(/* webpackChunkName: "Search" */ './Search'),
-    loading: Loading
+    loading: Loading, delay: 300
 });
 
 const ListPage = Loadable({
     loader: () => import(/* webpackChunkName: "ListPage" */ './ListPage'),
-    loading: Loading
+    loading: Loading, delay: 300
 });
 
 const Messages = Loadable({
-    loader: () => import('./Messages'),
-    loading: Loading
+    loader: () => import(/* webpackChunkName: "Messages" */ './Messages'),
+    loading: Loading, delay: 300
 });
 
 const SignUpPage = Loadable({
     loader: () => import(/* webpackChunkName: "SignUpPage" */ './SignUpPage'),
-    loading: Loading
+    loading: Loading, delay: 300
 });
 
 const LogInPage = Loadable({
     loader: () => import(/* webpackChunkName: "LogInPage" */ './LogInPage'),
-    loading: Loading
+    loading: Loading, delay: 300
 });
 
 const TripPage = Loadable({
     loader: () => import(/* webpackChunkName: "TripPage" */ './TripPage'),
-    loading: Loading
+    loading: Loading, delay: 300
 });
 
 const AppBar = Loadable({
     loader: () => import(/* webpackChunkName: "AppBar" */ './AppBar'),
-    loading: Loading
+    loading: Loading, delay: 300
 });
 
 const BottomNav = Loadable({
     loader: () => import(/* webpackChunkName: "BottomNav" */ './BottomNav'),
-    loading: Loading
+    loading: Loading, delay: 300
 });
 
 const App = (props: any) => {

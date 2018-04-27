@@ -1,13 +1,16 @@
 {
-    "compilerOptions": {
-      "allowSyntheticDefaultImports": true,
-      "outDir": "./dist/",
-      "sourceMap": true,
-      "noImplicitAny": true,
-      "module": "commonjs",
-      "lib":["dom", "es2015"],
-      "target": "es5",
-      "jsx": "react",
-      "allowJs": true
-    }
-  }
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./dist/",
+    "target": "es5",
+    "sourceMap": false,
+    "inlineSourceMap": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "preserveConstEnums": true,
+    "removeComments": false,
+    "lib": ["es6", "dom"]
+  },
+  "types": ["node"]
+}

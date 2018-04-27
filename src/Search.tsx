@@ -5,7 +5,7 @@ import SearchItem, {fragment} from './SearchItem';
 
 const searchQuery = gql`
     query {
-        trips(take:5) {
+        trips(skip: 20, take:5) {
             ...SearchTrip
         }
     }
