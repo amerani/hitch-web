@@ -5,8 +5,11 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
-import { ApolloLink, concat } from 'apollo-link';
-import { API_URL } from './config';
+import { ApolloLink } from 'apollo-link';
+import { SubscriptionClient } from 'subscriptions-transport-ws';
+import { WebSocketLink } from 'apollo-link-ws';
+import { getMainDefinition } from 'apollo-utilities';
+import { API_URL, WS_URL } from './config';
 import App from './App';
 
 const initialData = JSON.parse(document.getElementById('initial-data').getAttribute('data-json'));
@@ -24,9 +27,25 @@ const authLink = new ApolloLink((op, next) => {
 
 const httpLink = new HttpLink({ uri: API_URL });
 
+const wsClient = new SubscriptionClient(WS_URL, {
+    reconnect: true
+});
+
+const wsLink:any = new WebSocketLink(wsClient);
+
+const link = ApolloLink.split(
+    // split based on operation type
+    ({ query }) => {
+      const { kind, operation }:any = getMainDefinition(query);
+      return kind === 'OperationDefinition' && operation === 'subscription';
+    },
+    wsLink,
+    httpLink,
+  );
+
 const client = new ApolloClient({
     ssrForceFetchDelay: 100,
-    link: concat(authLink, httpLink),
+    link: ApolloLink.from([authLink, link]),
     cache: new InMemoryCache().restore(initialData),
     connectToDevTools: true
 })
