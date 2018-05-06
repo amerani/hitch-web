@@ -22,7 +22,7 @@ const authLink = new ApolloLink((op, next) => {
     return next(op);
 })
 
-const httpLink = new HttpLink({ uri: "https://api.hitch.cool/graphql" });
+const httpLink = new HttpLink({ uri: API_URL });
 
 const client = new ApolloClient({
     ssrForceFetchDelay: 100,

@@ -36,12 +36,14 @@ class SearchItem extends React.Component<any, any> {
 
     render() {
         const { classes } = this.props;
+        //TODO: delete all records with no creator
+        const creator = this.props.trip.createdBy;
         return (
             <>
                 <Card className={classes.card}>
                     <CardContent>
                         <Typography>
-                            Username: {this.props.trip.createdBy.userName}
+                            Username: {creator ? creator.userName : "Ghost"}
                         </Typography>
                         <Typography>
                             Origin: {this.props.trip.legs[0].origin.city}
