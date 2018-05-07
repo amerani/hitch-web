@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloLink } from 'apollo-link';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
@@ -11,6 +11,7 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import { API_URL, WS_URL } from './config';
 import App from './App';
+const introspectionQueryResultData = require('./fragmentTypes.json');
 
 const initialData = JSON.parse(document.getElementById('initial-data').getAttribute('data-json'));
 
@@ -43,10 +44,13 @@ const link = ApolloLink.split(
     httpLink,
   );
 
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+    introspectionQueryResultData});
+
 const client = new ApolloClient({
     ssrForceFetchDelay: 100,
     link: ApolloLink.from([authLink, link]),
-    cache: new InMemoryCache().restore(initialData),
+    cache: new InMemoryCache({fragmentMatcher}),
     connectToDevTools: true
 })
 
