@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { Subscription } from 'react-apollo';
 import gql from 'graphql-tag';
-import SearchItem, { fragment } from './SearchItem';
 
 const sub:any = gql`
-  subscription tripCreated {
-    tripCreated {
-      ...SearchTrip
+  subscription {
+    notification {
+      ... on Trip { id }
+      ... on Leg { id }
+      ... on Reservation { id }
     }
   }
-  ${fragment}
 `
 
 export default class Messages extends React.Component<any,any> {
@@ -19,7 +19,7 @@ export default class Messages extends React.Component<any,any> {
       <Subscription subscription={sub}>
       {({loading, data, error}) => {
         if(!loading) {
-          this.messages.push(data.tripCreated)
+          this.messages.push(data.notification)
         }
         return (
           <>
@@ -27,8 +27,7 @@ export default class Messages extends React.Component<any,any> {
               ? <p>Loading</p>
               : this.messages.map((msg:any) =>
                   <React.Fragment key={msg.id}>
-                    <h4>{msg.__typename} Created</h4>
-                    <SearchItem trip={msg} />
+                    <h4>{msg.__typename} Created</h4><span>with ID {msg.id}</span>
                   </React.Fragment>
                 )
             }
