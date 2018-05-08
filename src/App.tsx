@@ -96,7 +96,7 @@ const App = (props: any) => {
                     </Paper>
                 </Grid>
                 <Grid item xs={12} className={classes.bottomNav}>
-                    <BottomNav />
+                    <BottomNav isLoggedIn={isLoggedIn}/>
                 </Grid>
             </Grid>
         </div>

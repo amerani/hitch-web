@@ -14,10 +14,10 @@ const searchQuery = gql`
 
 class MyTrip extends React.Component<any,any> {
     render() {
-        const { loading, data } = this.props;
+        const { loading, data, error } = this.props;
         return (
             <>
-                {loading
+                {loading || error
                     ? <p>Loading</p> 
                     : data.myTrips.map((trip:any) => 
                         <SearchItem key={trip.id} trip={trip} />

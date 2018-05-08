@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {withRouter} from 'react-router';
-import {AppBar, Toolbar, Button, withStyles} from 'material-ui';
+import {AppBar, Toolbar, Button, withStyles, Icon} from 'material-ui';
 import { Link } from 'react-router-dom';
 
 const styles: any = {
@@ -9,6 +9,9 @@ const styles: any = {
     },
     end: {
         justifyContent: 'flex-end'
+    },
+    profileIcon: {
+        fontSize: '36px'
     }
 }
 
@@ -42,10 +45,11 @@ class HitchAppBar extends React.Component<any, any> {
                             </Button>                         
                             </>
                          : <>
-                         <Button style={{textDecoration: 'none', color: 'white'}} onClick={() => this.handleLogout()}>
-                             Logout
-                         </Button>                    
-                         </>
+                            <Icon className={classes.profileIcon}>account_circle</Icon>
+                            <Button style={{textDecoration: 'none', color: 'white'}} onClick={() => this.handleLogout()}>
+                                Logout
+                            </Button>                    
+                            </>
                         }
 
                     </Toolbar>

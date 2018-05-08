@@ -27,7 +27,7 @@ class BottomNav extends React.Component<any, any> {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, isLoggedIn } = this.props;
     const { value } = this.state;
 
     return (
@@ -37,17 +37,29 @@ class BottomNav extends React.Component<any, any> {
         onChange={this.handleChange}
         className={classes.root}
       >
-        <BottomNavigationAction label="Search" value="search" 
-            icon={<Icon className={classes.icon}>search</Icon>} />
+        {isLoggedIn()
+        ? <BottomNavigationAction 
+            label="MyTrips" 
+            value="myTrips" 
+            icon={<Icon className={classes.icon}>map</Icon>} /> 
+        : <BottomNavigationAction 
+            label="Home" 
+            value="" 
+            icon={<Icon className={classes.icon}>home</Icon>} /> 
+        }
         <BottomNavigationAction label="List" value="list" 
             icon={<Icon className={classes.icon}>add</Icon>} />
-        <BottomNavigationAction label="Messages" value="messages" 
-            icon={<Icon className={classes.icon}>chat</Icon>} />
-        <BottomNavigationAction label="MyTrips" value="myTrips" 
-            icon={<Icon className={classes.icon}>map</Icon>} />            
+        <BottomNavigationAction label="Search" value="search" 
+            icon={<Icon className={classes.icon}>search</Icon>} />
       </BottomNavigation>
     );
   }
 }
 
-export default withRouter(withStyles(styles)(BottomNav));
+const WithRouter = withRouter(withStyles(styles)(BottomNav));
+
+export default class BottonNavWithRouter extends React.Component<any,any> {
+    render() {
+        return <WithRouter {...this.props}/>
+    }
+}
