@@ -43,6 +43,8 @@ class BottomNav extends React.Component<any, any> {
             icon={<Icon className={classes.icon}>add</Icon>} />
         <BottomNavigationAction label="Messages" value="messages" 
             icon={<Icon className={classes.icon}>chat</Icon>} />
+        <BottomNavigationAction label="MyTrips" value="myTrips" 
+            icon={<Icon className={classes.icon}>map</Icon>} />            
       </BottomNavigation>
     );
   }

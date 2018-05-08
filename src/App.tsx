@@ -70,6 +70,11 @@ const BottomNav = Loadable({
     loading: Loading, delay: 300
 });
 
+const MyTrips = Loadable({
+    loader: () => import(/* webpackChunkName: "MyTrips" */ './MyTrips'),
+    loading: Loading, delay: 300
+});
+
 const App = (props: any) => {
     const {classes, isLoggedIn} = props;
     return (
@@ -86,6 +91,7 @@ const App = (props: any) => {
                         <Route path="/search" component={Search}/>
                         <Route path="/list" component={ListPage}/>
                         <Route path="/messages" component={Messages}/>
+                        <Route path="/myTrips" component={MyTrips}/>
                         <Route path="/trip/:id" component={TripPage}/>                
                     </Paper>
                 </Grid>
