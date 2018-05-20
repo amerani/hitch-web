@@ -2,6 +2,7 @@ import * as React from 'react';
 import gql from 'graphql-tag';
 import { withRouter } from 'react-router';
 import { Card, CardContent, Typography, CardActions, Button, withStyles } from 'material-ui';
+import DateTime from './DateTime';
 
 export const fragment = gql`
 fragment SearchTrip on Trip {
@@ -46,13 +47,14 @@ class SearchItem extends React.Component<any, any> {
                             Username: {creator ? creator.userName : "Ghost"}
                         </Typography>
                         <Typography>
-                            Origin: {this.props.trip.legs[0].origin.city}
-                        </Typography>
-                        <Typography>
+                            Origin: {this.props.trip.legs[0].origin.city},{" "}
                             Destination: {this.props.trip.legs[0].destination.city}
                         </Typography>                        
                         <Typography>
-                            Arrival: {this.props.trip.legs[0].arrival}
+                            Departure: <DateTime rawDate={this.props.trip.legs[0].departure}/>
+                        </Typography>      
+                        <Typography>
+                            Arrival: <DateTime rawDate={this.props.trip.legs[0].arrival}/>
                         </Typography>                                                
                     </CardContent>
                     <CardActions>

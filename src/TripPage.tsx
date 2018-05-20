@@ -1,6 +1,8 @@
 import * as React from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
+import Trip from './Trip';
+import { Button } from 'material-ui';
 
 const query = gql`
     query trip($id: ID!){
@@ -34,17 +36,20 @@ export default class TripPage extends React.Component<any, any> {
         const { match, location, staticContext } = this.props;
         return (
             <>
-                <div>{match.params.id}</div>
-                {location.state || staticContext
-                ? <div>{JSON.stringify(location.state)}</div>
+                {location.state
+                ?   <Trip {...location.state}/>
                 :   <Query query={query} variables={{id: match.params.id}}>
                             {({loading, data, error, fetchMore }) => {
-                                return (
-                                <>
-                                    <div>{JSON.stringify(data)}</div>
-                                    <div>{JSON.stringify(error)}</div>
-                                </>
-                                )
+                                if(loading) return <p>Loading</p>
+                                else if(data.trip.legs[0].transport.reservations) {
+                                    return (
+                                        <>
+                                            <Trip {...data} />
+                                            <Button>Add Leg</Button>
+                                        </>
+                                    )
+                                }
+                                return <Trip {...data}/>
                             }}
                     </Query>
                 }
