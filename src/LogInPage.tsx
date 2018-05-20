@@ -7,6 +7,7 @@ const mutation = gql`
     mutation login($input: LoginInput!){
         login(input:$input) {
             user {
+                id
                 jwt
             }
         }
@@ -41,6 +42,7 @@ export default class LogInPage extends React.Component<any, any> {
             })
             const data = res.data.login;
             localStorage['HITCH_JWT'] = data.user.jwt;
+            localStorage['HITCH_USER_ID'] = data.user.id;
             this.props.history.push('/list');
         } catch (error) {
             this.setState({

@@ -21,7 +21,10 @@ class HitchAppBar extends React.Component<any, any> {
     }
 
     handleLogout = () => {
-        localStorage && localStorage.removeItem('HITCH_JWT');
+        if(localStorage) {
+            localStorage.removeItem('HITCH_JWT');
+            localStorage.removeItem('HITCH_USER_ID');
+        }
         this.props.history.push('/login');
     }
 
