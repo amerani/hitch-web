@@ -14,7 +14,7 @@ class Trip extends React.Component<any,any> {
         return (
             trip 
             && trip.legs.map(
-                leg => <Leg key={leg.id} {...leg}/>)
+                (leg:any) => <Leg key={leg.id} {...leg}/>)
         )
     }
 }

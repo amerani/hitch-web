@@ -23,7 +23,7 @@ const tripSubscription = gql`
 
 const subscription = {
     document: tripSubscription,
-    updateQuery: (prev, { subscriptionData }) => {    
+    updateQuery: (prev:any, { subscriptionData }:any) => {    
         if(!subscriptionData.data) return prev;
 
         const newTrip = subscriptionData.data.tripCreated;

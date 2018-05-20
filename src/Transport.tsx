@@ -14,7 +14,7 @@ class Transport extends React.Component<any,any> {
         return (
             <Card className={classes.padding20}>
                 Transport Type {type}
-                {reservations && reservations.map(r => <Reservation key={r.id} {...r} />)}
+                {reservations && reservations.map((r:any) => <Reservation key={r.id} {...r} />)}
             </Card>
         )
     }
